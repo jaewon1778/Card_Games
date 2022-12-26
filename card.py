@@ -1,6 +1,11 @@
 import random
 
 class card_output():
+    '''
+    @ (int)card_num = 0 - 카드 리스트 길이
+    @ (list[card])card_li = [] - 카드 리스트
+    @ 카드 출력의 class
+    '''
     card_num = 0
     card_li = []
     def __init__(self,card_num,card_li):
@@ -9,7 +14,7 @@ class card_output():
     def card_num_output(self,num):
         cno =["┏━┓┣━┫┃ ┃","┏━┓┏━┛┗━━","┏━┓ ━┫┗━┛","┃ ┃┗━╋  ┃",
             "┏━━┗━┓┗━┛","┏━┓┣━┓┗━┛","┏━┓  ┃  ┃","┏━┓┣━┫┗━┛",
-            "┏━┓┗━┫┗━┛","┳┏┓┃┃┃┻┗┛","━━┳  ┃┗━┛","┏━┓┃ ┃┗━╋","┃┏┛┣┻┓┃ ┃"]
+            "┏━┓┗━┫┗━┛","┓┏┓┃┃┃┻┗┛","━━┳  ┃┗━┛","┏━┓┃ ┃┗━╋","┃┏┛┣┻┓┃ ┃"]
         return cno[num-1]
     def card_mark_output(self,mark):
         cmo = ["♠","♦","♥","♣"]
@@ -42,6 +47,12 @@ class card_output():
         
 
 class card():
+    '''
+    @ (string)mark - 카드의 문양 "s", "d", "h", "c" 중 하나
+    @ (int)num = - 카드의 숫자 1 ~ 13 중 하나
+    @ (bool)back = False - 카드의 앞뒷면(기본 앞면)
+    @ card 한 장의 class
+    '''
     back = False
     mark = ""
     num = 0
@@ -61,6 +72,11 @@ class card():
         self.back = backis
 
 class deck():
+    '''
+    @ (int)deck_num = 52 - 덱의 카드 개수
+    @ (list[card])deck = [52 cards] - 덱의 카드 리스트
+    @ 52장 카드 덱
+    '''
     deck_num = 52
     deck = []
     def __init__(self):
@@ -89,6 +105,11 @@ class deck():
         return card()
 
 class hand():
+    '''
+    @ (int)hand_num = 0 - 패의 카드 수
+    @ (list[card])card_li = [] - 패의 카드 리스트
+    @ player의 패
+    '''
     hand_num = 0
     card_li = []
     def __init__(self,hand_num=0,card_li=[]):
@@ -105,6 +126,27 @@ class hand():
         print(output[4])
         print(output[5])
         print(output[6])
+    def print_hand_with_row(self, row):
+        col = self.hand_num//row
+        rem = self.hand_num%row
+        for i in range(col):
+            output = card_output(i*row,self.card_li[row*i:row*(i+1)]).get_card_output()
+            print(output[0])
+            print(output[1])
+            print(output[2])
+            print(output[3])
+            print(output[4])
+            print(output[5])
+            print(output[6])
+        if rem != 0:
+            output = card_output(rem,self.card_li[col*row:]).get_card_output()
+            print(output[0])
+            print(output[1])
+            print(output[2])
+            print(output[3])
+            print(output[4])
+            print(output[5])
+            print(output[6])
     def plus_card(self,newcard):
         self.card_li.append(newcard)
         self.hand_num += 1
@@ -139,13 +181,6 @@ class hand():
                 return i
         return -1
 
-# mydeck = deck()
 
-# myhand = hand()
-# mydeck.dealing(myhand,3)
-# myhand.print_hand()
-# q = myhand.get_card_with_id(3)
 
-# myhand.minus_card(0)
-# myhand.print_hand()
 
